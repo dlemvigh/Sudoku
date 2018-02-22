@@ -1,0 +1,28 @@
+.Sudoku-table {
+  border-collapse: collapse;
+}
+
+.Sudoku-cell {
+  border: 1px solid black;
+  padding: 0;
+}
+
+.Sudoku-value {
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table.Sudoku-tiny {
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+}
+
+td.Sudoku-tiny {
+  font-size: 0.5rem;
+  padding: 0;
+  width: 33%;
+  height: 33%;
+}
