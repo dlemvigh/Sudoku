@@ -58,7 +58,6 @@ export function parseGrid(grid) {
 }
 
 export function assign(values, s, d) {
-  console.log("assign", s, d)
   const other = values[s].filter(x => x != d);
   if (!other.every(d2 => eliminate(values, s, d2))) {
     return false;
@@ -76,5 +75,38 @@ export function eliminate(values, s, d) {
       return false;
     }
   }
+  for (let u of units[s]) {
+    const places = u.filter(s2 => values[s2].indexOf(d) >= 0);
+    if (places.length === 0) return false;
+    if (places.length === 1) {
+      if (!assign(values, places[0], d)) return false;
+    }
+  }
+  units[s].forEach(u => {
+    const places = u.filter(x => x == d)
+  })
   return values;
+}
+
+export function solve(grid) {
+  return search(parseGrid(grid));
+}
+
+export function search(values) {
+  if (values == false) return false;
+
+  if (squares.every(s => values[s].length == 1)) return values;
+
+  debugger
+  const [n, s] = squares.filter(s => values[s].length > 1).map(s => [values[s].length, s]).sort((a,b) => a[0] - b[0])[0];
+
+  console.log("search", values, s)
+  for (let d of values[s]) {
+    let values2 = search(assign({...values}, s, d));
+    if (values2) {
+      return values2;
+    }
+  }
+
+  return false;
 }
