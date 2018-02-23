@@ -1,5 +1,10 @@
 .Sudoku-table {
   border-collapse: collapse;
+  float: left;
+}
+
+.Sudoku-table~.Sudoku-table {
+  margin-left: 2rem;
 }
 
 .Sudoku-cell {

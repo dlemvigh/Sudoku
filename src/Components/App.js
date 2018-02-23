@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import "./Sudoku/Sudoku.css"
 import Grid from './Sudoku/Grid';
-import { gridValues } from '../Algorithms/sudoku';
+import { gridValues, parseGrid } from '../Algorithms/sudoku';
 
 class App extends Component {
 
@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       value: value,
       parsed: value,
-      grid: gridValues(value)
+      grid: gridValues(value),
+      solution: parseGrid(value)
     }
   }
 
@@ -21,7 +22,8 @@ class App extends Component {
     const value = event.target.value;
     const parsed = value.replace(/[^0-9.]/g, "").replace(/\./g, "0");
     const grid = gridValues(parsed);;
-    this.setState({ value, parsed, grid });
+    const solution = parseGrid(parsed);
+    this.setState({ value, parsed, grid, solution });
   }
 
   render() {
@@ -35,6 +37,7 @@ class App extends Component {
         <p className="App-intro">
         </p>
         <Grid grid={this.state.grid} />
+        <Grid grid={this.state.solution} />
         <textarea value={this.state.value} onChange={this.handleChange} rows="5" cols="40" />
         </main>
       </div>

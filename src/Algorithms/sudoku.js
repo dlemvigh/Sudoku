@@ -46,13 +46,35 @@ export function gridValues(grid) {
 }
 
 export function parseGrid(grid) {
-  
+  const values = {};
+  squares.map(s => values[s] = digits);
+  const dict = gridValues(grid);
+  Object.keys(dict).forEach(s => {
+    if (dict[s] != 0) {
+      assign(values, s, dict[s])
+    }
+  })
+  return values;
 }
 
 export function assign(values, s, d) {
-
+  console.log("assign", s, d)
+  const other = values[s].filter(x => x != d);
+  if (!other.every(d2 => eliminate(values, s, d2))) {
+    return false;
+  }
+  return values;
 }
 
 export function eliminate(values, s, d) {
-  
+  if (values[s].indexOf(d) == -1) return values; 
+  values[s] = values[s].filter(x => x != d);
+  if (values[s].length == 0) return false;
+  if (values[s].length == 1) {
+    const d2 = values[s][0];
+    if (!peers[s].every(s2 => eliminate(values, s2, d2))) {
+      return false;
+    }
+  }
+  return values;
 }
